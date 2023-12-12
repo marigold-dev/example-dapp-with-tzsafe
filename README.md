@@ -1,30 +1,35 @@
-# React + TypeScript + Vite
+# Example Dapp with TzSafe
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repo demos how to create a Dapp that can connect with [TzSafe](https://github.com/marigold-dev/tzsafe-ui), and buy an NFT through [objkt](https://objkt.com/) contract.
 
-Currently, two official plugins are available:
+## How to install and run the Dapp?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+git clone https://github.com/marigold-dev/example-dapp-with-tzsafe
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+```bash
+cd example-dapp-with-tzsafe && npm i
+```
+
+```bash
+npm run dev
+```
+
+## How to connect the Dapp to TzSafe?
+
+Once the dapp is launch, you can go to [localhost:5173](https://localhost:5173/), and click on `Connect` to launch beacon modal. Once it's opened, you can scroll down, and click on `Display QR code`, then `Beacon` and finally `Copy to clipboard`. Once it's done, you can head to TzSafe's `Connect Dapp` page, and paste the code you just copied. Follow the steps until you authorize your wallet to connect to the Dapp, and once it's done, you can go back to the Dapp side.
+
+If you encounter any trouble with the wallet connection, click on `Reset` and connect TzSafe again.
+
+## How to buy an NFT?
+
+You can update those 3 variables to change the contract address, token id and tez amount you want to have for the contract call.
+
+```ts
+const CONTRACT_ADDRESS = "KT1...";
+const TOKEN_ID = 1;
+const TEZ = 1;
+```
+
+And once it's done, you can just click on `Buy an NFT`, and go on TzSafe to create a proposal, and once it'll be resolved, the NFT will be inside your TzSafe wallet.

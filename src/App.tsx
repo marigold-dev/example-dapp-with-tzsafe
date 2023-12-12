@@ -11,6 +11,7 @@ const beaconWallet = new BeaconWallet({
   name: "NFT example",
   preferredNetwork: NetworkType.GHOSTNET,
 });
+
 const CONTRACT_ADDRESS = "KT1MgFkiooUwjomkuFgqyxvAJhU3nwfWkAhx";
 const TOKEN_ID = 1;
 const TEZ = 1;
