@@ -33,3 +33,8 @@ const TEZ = 1;
 ```
 
 And once it's done, you can just click on `Buy an NFT`, and go on TzSafe to create a proposal, and once it'll be resolved, the NFT will be inside your TzSafe wallet.
+
+## About Taquito
+
+Currently Taquito doesn't support @airgap/beacon-sdk `4.0.13beta1`, so in order to make it works, we copied their version of the beacon wallet, and fixed the function that was causing a crash. So if you look inside `taquitoClient.ts` you'll see that the only difference is line 263 with this change: `return account.publicKey ?? "";`.
+The reason of this fix is pretty simple: so far all the connected wallet had a public key, which is not the case anymore with abstracted account.
