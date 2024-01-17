@@ -10,9 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@airgap/beacon-sdk": "4.0.13-beta.1",
-    "@taquito/beacon-wallet": "file:../multi/taquito/packages/taquito-beacon-wallet",
-    "@taquito/taquito": "^17.4.0",
+    "@airgap/beacon-sdk": "4.1.0",
+    "@taquito/beacon-wallet": "^17.5.2",
+    "@taquito/taquito": "^17.5.2",
     "@types/typedarray-to-buffer": "^4.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
