@@ -3,7 +3,7 @@ import "./App.css";
 import { TezosToolkit } from "@taquito/taquito";
 import { RPC_URL } from "./config";
 import { AccountInfo, NetworkType } from "@airgap/beacon-sdk";
-import { BeaconWallet } from "./taquitoClient";
+import { BeaconWallet } from "@taquito/beacon-wallet";
 import { getProposalIdOfCreatedProposal } from "./utils";
 
 const Tezos = new TezosToolkit(RPC_URL);
