@@ -152,7 +152,8 @@ function App() {
                       .status === "applied",
                 )
               ) {
-                alert("Simulated Proof Of Event succeeded");
+                console.log("The emitted proof of event:", preapply[0].contents[2].metadata.internal_operation_results[2]);
+                alert("Simulated Proof Of Event succeeded");                
               } else {
                 alert("Simulated Proof Of Event failed");
               }
