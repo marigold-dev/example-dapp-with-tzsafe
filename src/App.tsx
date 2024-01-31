@@ -3,7 +3,7 @@ import "./App.css";
 import { TezosToolkit } from "@taquito/taquito";
 import { RPC_URL } from "./config";
 import { AccountInfo, NetworkType } from "@airgap/beacon-sdk";
-import { BeaconWallet } from "@taquito/beacon-wallet";
+import { BeaconWallet } from "./taquitoWallet";
 import { getProposalIdOfCreatedProposal } from "./utils";
 
 const Tezos = new TezosToolkit(RPC_URL);
@@ -127,6 +127,39 @@ function App() {
             }}
           >
             Buy an NFT
+          </button>
+          <button
+            style={{
+              marginRight: "8px",
+            }}
+            onClick={async () => {
+              const operationList =
+                await beaconWallet.requestSimulatedProofOfEvent();
+
+              console.log("Operations:", atob(operationList));
+
+              const preapply = await Tezos.rpc.preapplyOperations(
+                JSON.parse(atob(operationList)),
+              );
+
+              console.log("Preapply response:", preapply);
+
+              if (
+                preapply[0].contents.every(
+                  (transaction) =>
+                    // @ts-expect-error - We know the type that'll be returned
+                    transaction.metadata.internal_operation_results[0].result
+                      .status === "applied",
+                )
+              ) {
+                console.log("The emitted proof of event:", preapply[0].contents[2].metadata.internal_operation_results[2]);
+                alert("Simulated Proof Of Event succeeded");                
+              } else {
+                alert("Simulated Proof Of Event failed");
+              }
+            }}
+          >
+            Simulated Proof of Event
           </button>
           <button
             style={{

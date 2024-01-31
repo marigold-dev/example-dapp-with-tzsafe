@@ -33,3 +33,7 @@ const TEZ = 1;
 ```
 
 And once it's done, you can just click on `Buy an NFT`, and go on TzSafe to create a proposal, and once it'll be resolved, the NFT will be inside your TzSafe wallet.
+
+## Why a custom taquito wallet?
+
+Since the simulated proof of event is still not available, we need to have a way to access it. To do so, you need to clone the [`beacon-sdk`](https://github.com/marigold-dev/beacon-sdk-fork) repo at the same level than this one, checkout to `feat/tzip-28` and build it. Then, you can run `copy.sh` and it'll automatically replace the beacon-sdk code inside your node_modules by the one that you just built.
