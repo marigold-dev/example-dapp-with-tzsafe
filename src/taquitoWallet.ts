@@ -45,7 +45,7 @@ export class MissingRequiredScopes extends PermissionDeniedError {
     super();
     this.name = "MissingRequiredScopes";
     this.message = `Required permissions scopes: ${requiredScopes.join(
-      ",",
+      ","
     )} were not granted.`;
   }
 }
@@ -59,7 +59,7 @@ export class BeaconWallet implements WalletProvider {
 
   private validateRequiredScopesOrFail(
     permissionScopes: PermissionScope[],
-    requiredScopes: PermissionScope[],
+    requiredScopes: PermissionScope[]
   ) {
     const mandatoryScope = new Set(requiredScopes);
 
@@ -88,7 +88,7 @@ export class BeaconWallet implements WalletProvider {
   }
 
   async mapTransferParamsToWalletParams(
-    params: () => Promise<WalletTransferParams>,
+    params: () => Promise<WalletTransferParams>
   ) {
     let walletParams: WalletTransferParams;
     await this.client.showPrepare();
@@ -100,12 +100,12 @@ export class BeaconWallet implements WalletProvider {
     }
     return this.removeDefaultParams(
       walletParams,
-      await createTransferOperation(this.formatParameters(walletParams)),
+      await createTransferOperation(this.formatParameters(walletParams))
     );
   }
 
   async mapIncreasePaidStorageWalletParams(
-    params: () => Promise<WalletIncreasePaidStorageParams>,
+    params: () => Promise<WalletIncreasePaidStorageParams>
   ) {
     let walletParams: WalletIncreasePaidStorageParams;
     await this.client.showPrepare();
@@ -118,13 +118,13 @@ export class BeaconWallet implements WalletProvider {
     return this.removeDefaultParams(
       walletParams,
       await createIncreasePaidStorageOperation(
-        this.formatParameters(walletParams),
-      ),
+        this.formatParameters(walletParams)
+      )
     );
   }
 
   async mapOriginateParamsToWalletParams(
-    params: () => Promise<WalletOriginateParams>,
+    params: () => Promise<WalletOriginateParams>
   ) {
     let walletParams: WalletOriginateParams;
     await this.client.showPrepare();
@@ -136,12 +136,12 @@ export class BeaconWallet implements WalletProvider {
     }
     return this.removeDefaultParams(
       walletParams,
-      await createOriginationOperation(this.formatParameters(walletParams)),
+      await createOriginationOperation(this.formatParameters(walletParams))
     );
   }
 
   async mapDelegateParamsToWalletParams(
-    params: () => Promise<WalletDelegateParams>,
+    params: () => Promise<WalletDelegateParams>
   ) {
     let walletParams: WalletDelegateParams;
     await this.client.showPrepare();
@@ -153,7 +153,7 @@ export class BeaconWallet implements WalletProvider {
     }
     return this.removeDefaultParams(
       walletParams,
-      await createSetDelegateOperation(this.formatParameters(walletParams)),
+      await createSetDelegateOperation(this.formatParameters(walletParams))
     );
   }
 
@@ -172,7 +172,7 @@ export class BeaconWallet implements WalletProvider {
 
   removeDefaultParams(
     params: WalletTransferParams | WalletOriginateParams | WalletDelegateParams,
-    operatedParams: any,
+    operatedParams: any
   ) {
     // If fee, storageLimit or gasLimit is undefined by user
     // in case of beacon wallet, dont override it by
@@ -231,7 +231,7 @@ export class BeaconWallet implements WalletProvider {
     const signingType = this.getSigningType(watermark);
     if (signingType !== SigningType.OPERATION) {
       throw new UnsupportedActionError(
-        `Taquito Beacon Wallet currently only supports signing operations, not ${signingType}`,
+        `Taquito Beacon Wallet currently only supports signing operations, not ${signingType}`
       );
     }
     const { signature } = await this.client.requestSignPayload({
@@ -273,5 +273,13 @@ export class BeaconWallet implements WalletProvider {
     if (errorMessage === "") return operationsList;
 
     throw new Error(errorMessage);
+  }
+
+  async requestProofOfEvent(payload: string) {
+    const result = await this.client.requestProofOfEventChallenge({
+      payload,
+    });
+    console.warn(result);
+    return result;
   }
 }
