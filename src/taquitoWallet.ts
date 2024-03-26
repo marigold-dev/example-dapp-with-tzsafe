@@ -22,6 +22,7 @@ import {
 import { buf2hex, hex2buf, mergebuf } from "@taquito/utils";
 import { UnsupportedActionError } from "@taquito/core";
 import { PermissionDeniedError } from "@taquito/core";
+import { AccountInfo, BeaconEvent } from "@airgap/beacon-sdk";
 
 /**
  *  @category Error
@@ -280,5 +281,9 @@ export class BeaconWallet implements WalletProvider {
       payload,
     });
     return result;
+  }
+
+  subscribeToActiveAccount(listener: (acc: AccountInfo) => void) {
+    this.client.subscribeToEvent(BeaconEvent.ACTIVE_ACCOUNT_SET, listener);
   }
 }
