@@ -99,7 +99,6 @@ function App() {
     };
   }, [waitingChallenges, walletInfo?.address, removeWaitingChallenge]);
 
-  console.log(waitingChallenges);
 
   useEffect(() => {
     if (!waitingId) return;

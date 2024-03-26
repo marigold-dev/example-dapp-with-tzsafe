@@ -279,7 +279,6 @@ export class BeaconWallet implements WalletProvider {
     const result = await this.client.requestProofOfEventChallenge({
       payload,
     });
-    console.warn(result);
     return result;
   }
 }
