@@ -71,12 +71,15 @@ function App() {
   };
 
   useEffect(() => {
-    beaconWallet.client.getActiveAccount().then((info) => {
-      setWalletInfo(info);
-      if (info) {
+    const listenerActiveAccount = (accountInfo: AccountInfo | undefined) => {
+      setWalletInfo(accountInfo);
+      if (accountInfo) {
         Tezos.setWalletProvider(beaconWallet);
+        setWalletInfo(accountInfo);
       }
-    });
+    };
+    beaconWallet.subscribeToActiveAccount(listenerActiveAccount);
+    beaconWallet.client.getActiveAccount().then(setWalletInfo);
   }, []);
 
   useEffect(() => {
@@ -98,7 +101,6 @@ function App() {
       clearInterval(id);
     };
   }, [waitingChallenges, walletInfo?.address, removeWaitingChallenge]);
-
 
   useEffect(() => {
     if (!waitingId) return;
@@ -138,13 +140,28 @@ function App() {
               await beaconWallet.requestPermissions({
                 network: { type: NetworkType.GHOSTNET },
               });
+            }}
+          >
+            Connect
+          </button>
+          <button
+            style={{
+              marginRight: "8px",
+            }}
+            onClick={async () => {
+              await beaconWallet.requestPermissions({
+                network: { type: NetworkType.GHOSTNET },
+              });
 
+              const isVerified = await connectWithSimulatedProofOfEvent();
+
+              if (!isVerified) return;
               beaconWallet.client.getActiveAccount().then(setWalletInfo);
 
               Tezos.setWalletProvider(beaconWallet);
             }}
           >
-            Connect
+            Connect with Simulated Proof Of Event
           </button>
           <button
             style={{
